@@ -1,6 +1,5 @@
-import { version } from '../../package.json';
-
-export const APP_VERSION = version;
+// Note: In a production app, sync this with package.json version
+export const APP_VERSION = '1.0.0';
 
 export const getVersionInfo = () => {
   return {
