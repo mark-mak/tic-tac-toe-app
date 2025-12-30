@@ -2,6 +2,7 @@ export type Player = 'X' | 'O';
 export type CellValue = Player | null;
 export type Board = CellValue[];
 export type GameStatus = 'playing' | 'win' | 'draw';
+export type GameMode = 'pvp' | 'ai';
 
 export interface GameState {
   board: Board;
@@ -9,4 +10,5 @@ export interface GameState {
   status: GameStatus;
   winner: Player | null;
   winningLine: number[] | null;
+  mode: GameMode;
 }

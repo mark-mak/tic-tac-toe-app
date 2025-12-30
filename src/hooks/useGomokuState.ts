@@ -1,45 +1,44 @@
 import { useState, useCallback, useEffect } from 'react';
-import { GameState, Player, GameMode } from '../types/game';
-import { checkWinner, checkDraw, createEmptyBoard } from '../utils/gameLogic';
-import { getAIMove } from '../utils/ai';
+import { GomokuGameState, GomokuPlayer, GomokuGameMode } from '../types/gomoku';
+import { createEmptyGomokuBoard, checkGomokuWinner, checkGomokuDraw } from '../utils/gomokuLogic';
+import { getGomokuAIMove } from '../utils/gomokuAI';
 
-export const useGameState = () => {
-  const [gameState, setGameState] = useState<GameState>({
-    board: createEmptyBoard(),
-    currentPlayer: 'X',
+export const useGomokuState = () => {
+  const [gameState, setGameState] = useState<GomokuGameState>({
+    board: createEmptyGomokuBoard(),
+    currentPlayer: 'Black',
     status: 'playing',
     winner: null,
     winningLine: null,
     mode: 'pvp',
   });
 
-  // AI makes move when it's O's turn in AI mode
+  // AI move effect
   useEffect(() => {
     if (
       gameState.mode === 'ai' &&
-      gameState.currentPlayer === 'O' &&
+      gameState.currentPlayer === 'White' &&
       gameState.status === 'playing'
     ) {
       const timer = setTimeout(() => {
-        const aiMoveIndex = getAIMove(gameState.board);
-        if (aiMoveIndex !== -1) {
-          makeMove(aiMoveIndex);
+        const aiMove = getGomokuAIMove(gameState.board, 'White');
+        if (aiMove) {
+          makeMove(aiMove.row, aiMove.col);
         }
-      }, 500); // Small delay for better UX
-
+      }, 500);
       return () => clearTimeout(timer);
     }
-  }, [gameState.currentPlayer, gameState.mode, gameState.status]);
+  }, [gameState.currentPlayer, gameState.status, gameState.mode]);
 
-  const makeMove = useCallback((index: number) => {
-    if (gameState.board[index] || gameState.status !== 'playing') {
+  const makeMove = useCallback((row: number, col: number) => {
+    if (gameState.board[row][col] || gameState.status !== 'playing') {
       return;
     }
 
-    const newBoard = [...gameState.board];
-    newBoard[index] = gameState.currentPlayer;
+    const newBoard = gameState.board.map(r => [...r]);
+    newBoard[row][col] = gameState.currentPlayer;
 
-    const { winner, line } = checkWinner(newBoard);
+    const { winner, line } = checkGomokuWinner(newBoard, row, col);
     
     if (winner) {
       setGameState({
@@ -53,7 +52,7 @@ export const useGameState = () => {
       return;
     }
 
-    if (checkDraw(newBoard)) {
+    if (checkGomokuDraw(newBoard)) {
       setGameState({
         board: newBoard,
         currentPlayer: gameState.currentPlayer,
@@ -67,7 +66,7 @@ export const useGameState = () => {
 
     setGameState({
       board: newBoard,
-      currentPlayer: gameState.currentPlayer === 'X' ? 'O' : 'X',
+      currentPlayer: gameState.currentPlayer === 'Black' ? 'White' : 'Black',
       status: 'playing',
       winner: null,
       winningLine: null,
@@ -77,8 +76,8 @@ export const useGameState = () => {
 
   const resetGame = useCallback(() => {
     setGameState({
-      board: createEmptyBoard(),
-      currentPlayer: 'X',
+      board: createEmptyGomokuBoard(),
+      currentPlayer: 'Black',
       status: 'playing',
       winner: null,
       winningLine: null,
@@ -86,10 +85,10 @@ export const useGameState = () => {
     });
   }, [gameState.mode]);
 
-  const setGameMode = useCallback((mode: GameMode) => {
+  const setGameMode = useCallback((mode: GomokuGameMode) => {
     setGameState({
-      board: createEmptyBoard(),
-      currentPlayer: 'X',
+      board: createEmptyGomokuBoard(),
+      currentPlayer: 'Black',
       status: 'playing',
       winner: null,
       winningLine: null,

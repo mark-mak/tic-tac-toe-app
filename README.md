@@ -1,12 +1,26 @@
-# Tic-Tac-Toe React Native App
+# Mini Game Hub - React Native App
 
-A beautiful and interactive Tic-Tac-Toe game built with React Native, TypeScript, and NativeWind (Tailwind CSS).
+A mini-game hub featuring classic board games built with React Native, Expo, and TypeScript.
 
 ## 🎮 Features
 
-- ✨ Clean and modern UI with Tailwind CSS styling
-- 🎯 Full game logic with win detection and draw handling
-- 🔄 New game functionality
+### Games Included
+1. **Tic-Tac-Toe**
+   - Classic 3x3 grid gameplay
+   - Player vs Player mode
+   - Player vs AI mode (Minimax algorithm for perfect play)
+   - Highlights winning combinations
+
+2. **Gomoku (Five in a Row)**
+   - 15x15 board
+   - Traditional Five-in-a-row rules
+   - Two-player mode
+   - Winning line highlights
+
+### App Features
+- 🏠 Home screen with game grid selector
+- ✨ Clean, modern UI with React Native StyleSheet
+- 🎯 Complete game logic for each game
 - 📱 Responsive design for mobile devices
 - 🎨 Visual feedback for winning combinations
 - ⚡ Built with TypeScript for type safety
@@ -18,16 +32,55 @@ A beautiful and interactive Tic-Tac-Toe game built with React Native, TypeScript
 tic-tac-toe-app/
 ├── src/
 │   ├── components/          # Reusable UI components
-│   │   ├── Board.tsx       # Game board container
-│   │   ├── Cell.tsx        # Individual cell component
+│   │   ├── Board.tsx       # Tic-Tac-Toe board
+│   │   ├── Cell.tsx        # Tic-Tac-Toe cell
+│   │   ├── GomokuBoard.tsx # Gomoku board
+│   │   ├── GomokuCell.tsx  # Gomoku cell
+│   │   ├── GameCard.tsx    # Home screen game selector
 │   │   ├── GameStatusDisplay.tsx  # Status message display
+│   │   ├── ModeSelector.tsx # PvP/AI mode selector
 │   │   ├── Button.tsx      # Reusable button component
 │   │   └── index.ts        # Component exports
 │   ├── hooks/              # Custom React hooks
-│   │   └── useGameState.ts # Game state management hook
+│   │   ├── useGameState.ts # Tic-Tac-Toe state management
+│   │   └── useGomokuState.ts # Gomoku state management
 │   ├── screens/            # Screen components
-│   │   └── GameScreen.tsx  # Main game screen
+│   │   ├── HomeScreen.tsx  # Game selection hub
+│   │   ├── GameScreen.tsx  # Tic-Tac-Toe game screen
+│   │   └── GomokuScreen.tsx # Gomoku game screen
+│   ├── store/              # Global state management
+│   │   └── useAppStore.ts  # Zustand store for app-wide state
 │   ├── types/              # TypeScript type definitions
+│   │   ├── game.ts         # Tic-Tac-Toe types
+│   │   ├── gomoku.ts       # Gomoku types
+│   │   └── navigation.ts   # React Navigation types
+│   └── utils/              # Utility functions
+│       ├── gameLogic.ts    # Tic-Tac-Toe game logic
+│       ├── gomokuLogic.ts  # Gomoku game logic
+│       ├── ai.ts           # Minimax AI algorithm
+│       └── version.ts      # App version
+├── App.tsx                 # Root component with navigation
+└── package.json            # Dependencies and scripts
+```
+
+## 🏗️ Architecture
+
+### Navigation
+- **React Navigation v6** with Native Stack Navigator
+- Type-safe navigation with TypeScript
+- Smooth slide transitions between screens
+- Hardware back button support on Android
+
+### State Management
+- **Zustand** for global app state (theme, settings, stats)
+- Local state with custom hooks for game logic
+- Separation of concerns: UI components + game logic
+
+### Key Patterns
+- **Component-based architecture**: Reusable, testable components
+- **Custom hooks**: Encapsulated game state and logic
+- **TypeScript**: Full type safety across navigation and state
+- **Modular structure**: Easy to add new games
 │   │   └── game.ts         # Game-related types
 │   └── utils/              # Utility functions
 │       └── gameLogic.ts    # Game logic functions
