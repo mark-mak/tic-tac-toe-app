@@ -19,6 +19,7 @@
     },
     "android": {
       "package": "com.anonymous.minigamehub",
+      "versionCode": 1,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
@@ -26,6 +27,11 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "c7009125-299c-4e50-bf9a-b1bc30c076ca"
+      }
     }
   }
 }

@@ -138,6 +138,44 @@ This will open Expo DevTools in your browser. From there, you can:
 - `npm run ios` - Run on iOS simulator (macOS only)
 - `npm run web` - Run in web browser
 
+## 📦 Building APK
+
+### Debug APK (Development)
+
+The debug APK is automatically built when running:
+```bash
+ANDROID_HOME=$HOME/Android/Sdk npx expo run:android
+```
+
+**Output location:**
+```
+android/app/build/outputs/apk/debug/app-debug.apk
+```
+
+### Release APK (Production)
+
+To build an optimized production APK:
+
+```bash
+cd android
+ANDROID_HOME=$HOME/Android/Sdk ./gradlew assembleRelease
+```
+
+**Output location:**
+```
+android/app/build/outputs/apk/release/app-release.apk
+```
+
+**Note:** The release APK is unsigned. For distribution:
+- Install on device: `adb install android/app/build/outputs/apk/release/app-release.apk`
+- For Google Play Store: Sign the APK with a keystore or use `./gradlew bundleRelease` to create an AAB file
+
+### Build Requirements
+- Android SDK installed at `$HOME/Android/Sdk`
+- ANDROID_HOME environment variable set
+- Java Development Kit (JDK) 17 or higher
+- Gradle (installed automatically via gradlew)
+
 ## 🎯 How to Play
 
 1. The game starts with Player X
