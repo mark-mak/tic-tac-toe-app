@@ -77,6 +77,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
         keyExtractor={item => item.id}
         numColumns={3}
         contentContainerStyle={styles.grid}
+        columnWrapperStyle={styles.row}
         style={styles.list}
       />
       
@@ -98,7 +99,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: 16,
-    paddingTop: 16,
+    paddingTop: 12,
     paddingBottom: 8,
   },
   titleContainer: {
@@ -109,38 +110,38 @@ const styles = StyleSheet.create({
     marginLeft: 8,
   },
   settingsIcon: {
-    fontSize: 28,
+    fontSize: 24,
   },
   list: {
     flex: 1,
-    paddingHorizontal: 16,
   },
   title: {
-    fontSize: 36,
+    fontSize: 28,
     fontWeight: 'bold',
     color: '#1F2937',
-    textAlign: 'center',
-    marginBottom: 8,
+    marginBottom: 4,
   },
   darkText: {
     color: '#F9FAFB',
   },
   subtitle: {
-    fontSize: 16,
+    fontSize: 14,
     color: '#6B7280',
-    textAlign: 'center',
-    marginBottom: 16,
   },
   darkSubText: {
     color: '#D1D5DB',
   },
   grid: {
-    padding: 8,
+    paddingHorizontal: 8,
+    paddingTop: 8,
+  },
+  row: {
+    justifyContent: 'center',
   },
   version: {
-    fontSize: 14,
+    fontSize: 12,
     color: '#9CA3AF',
     textAlign: 'center',
-    paddingVertical: 12,
+    paddingVertical: 8,
   },
 });
